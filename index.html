@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<title>La Thuy Ngan — Technical Project Manager</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700&display=swap');
+
+  :root {
+    --teal:    #006683;
+    --teal-lt: #008fad;
+    --navy:    #00253B;
+    --slate:   #44546A;
+    --gold:    #F8B90A;
+    --peach:   #E6A480;
+    --light:   #E7E6E6;
+    --white:   #FFFFFF;
+    --bg:      #F5F6F7;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-scroll-behavior: smooth; }
+  a, button { -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: 'Century Gothic', 'CenturyGothic', 'AppleGothic', 'Raleway', sans-serif;
+    background: var(--bg);
+    color: var(--navy);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 60px;
+    background: rgba(0,37,59,0.96);
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo { font-size: 1rem; font-weight: 700; letter-spacing: .15em; color: var(--gold); text-transform: uppercase; }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { color: var(--light); text-decoration: none; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; transition: color .25s; }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh; background: var(--navy);
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    padding: 120px 60px 80px;
+  }
+  .hero-bg { position: absolute; inset: 0; pointer-events: none; }
+  .hero-bg::before {
+    content: ''; position: absolute; bottom: -80px; right: -60px;
+    width: 520px; height: 520px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,102,131,.45) 0%, transparent 70%);
+  }
+  .hero-bg::after {
+    content: ''; position: absolute; top: 60px; right: 200px;
+    width: 6px; height: 220px;
+    background: linear-gradient(to bottom, var(--gold), transparent); opacity: .6;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 720px; }
+
+  .hero-tag {
+    display: inline-block; margin-bottom: 28px;
+    padding: 5px 16px; border: 1px solid var(--gold);
+    color: var(--gold); font-size: .72rem; letter-spacing: .2em;
+    text-transform: uppercase; border-radius: 2px;
+    animation: fadeUp .6s ease both;
+  }
+
+  h1 {
+    font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+    font-weight: 700; line-height: 1.05;
+    color: var(--white); letter-spacing: -.01em;
+    white-space: nowrap;
+    animation: fadeUp .6s .1s ease both;
+  }
+  h1 span { color: var(--gold); }
+
+  .hero-sub {
+    margin-top: 16px; font-size: 1rem; color: var(--peach);
+    font-weight: 300; letter-spacing: .06em; text-transform: uppercase;
+    animation: fadeUp .6s .2s ease both;
+  }
+  .hero-divider {
+    width: 60px; height: 3px; background: var(--gold);
+    margin: 28px 0; animation: fadeUp .6s .3s ease both;
+  }
+
+  .hero-desc {
+    max-width: 540px; animation: fadeUp .6s .35s ease both;
+  }
+  .hero-desc span {
+    display: block; color: rgba(231,230,230,.8);
+    font-size: .92rem; line-height: 1.75; margin-bottom: 4px;
+  }
+
+  .hero-certs {
+    margin-top: 32px; display: flex; flex-wrap: wrap; gap: 10px;
+    animation: fadeUp .6s .4s ease both;
+  }
+  .cert-badge {
+    padding: 6px 14px; border-radius: 20px;
+    background: rgba(0,102,131,.35); border: 1px solid rgba(0,143,173,.4);
+    color: var(--light); font-size: .75rem; letter-spacing: .1em;
+    text-decoration: none;
+    transition: background .2s, border-color .2s, color .2s;
+  }
+  a.cert-badge:hover {
+    background: rgba(248,185,10,.2); border-color: var(--gold); color: var(--gold);
+  }
+  span.cert-badge { cursor: default; }
+
+  .hero-contact {
+    margin-top: 28px; display: flex; gap: 24px; flex-wrap: wrap;
+    animation: fadeUp .6s .45s ease both;
+  }
+  .hero-contact a {
+    color: var(--teal-lt); text-decoration: none; font-size: .85rem;
+    letter-spacing: .05em; transition: color .2s;
+  }
+  .hero-contact a:hover { color: var(--gold); }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 100px 60px; }
+  .section-label {
+    font-size: .72rem; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--gold); font-weight: 600; margin-bottom: 10px;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700; color: var(--navy); line-height: 1.1; margin-bottom: 60px;
+  }
+  .section-title .sub {
+    display: block; font-size: .82rem; font-weight: 400;
+    color: var(--slate); letter-spacing: .04em; margin-top: 6px;
+  }
+  .section-title.light { color: var(--white); }
+  .section-title.light .sub { color: var(--peach); }
+
+  /* ─── ABOUT ─── */
+  #about { background: var(--white); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1100px; }
+  .achievement-card {
+    padding: 36px 32px;
+    background: var(--bg); border-left: 4px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    transition: transform .25s, box-shadow .25s;
+  }
+  .achievement-card:hover { transform: translateX(6px); box-shadow: -4px 0 20px rgba(248,185,10,.2); }
+  .achievement-card h3 {
+    font-size: .85rem; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 16px; font-weight: 600;
+  }
+  .achievement-card ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .achievement-card li {
+    font-size: .9rem; color: var(--slate); line-height: 1.6;
+    padding-left: 16px; position: relative;
+  }
+  .achievement-card li::before {
+    content: ''; position: absolute; left: 0; top: 9px;
+    width: 5px; height: 5px; border-radius: 50%; background: var(--gold);
+  }
+
+  /* ─── SKILLS ─── */
+  #skills { background: var(--navy); }
+  .skills-blocks { display: flex; flex-direction: column; gap: 40px; max-width: 1100px; }
+  .skill-block-label {
+    font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--gold); font-weight: 600; margin-bottom: 14px;
+    padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .skill-block-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .skill-chip {
+    padding: 10px 20px;
+    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 6px; color: var(--light); font-size: .85rem; letter-spacing: .04em;
+    transition: background .25s, border-color .25s, transform .2s; cursor: default;
+  }
+  .skill-chip:hover { background: rgba(0,102,131,.4); border-color: var(--teal-lt); transform: translateY(-3px); }
+
+  /* ─── TIMELINE ─── */
+  #experience { background: var(--white); }
+  .timeline { position: relative; max-width: 860px; padding-left: 40px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 7px; top: 8px; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, var(--teal), var(--light));
+  }
+  .tl-item { position: relative; margin-bottom: 48px; }
+  .tl-dot {
+    position: absolute; left: -40px; top: 6px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--white); border: 3px solid var(--teal);
+    transition: background .25s, border-color .25s, transform .25s; z-index: 2;
+  }
+  .tl-item:hover .tl-dot { background: var(--gold); border-color: var(--gold); transform: scale(1.3); }
+  .tl-date { font-size: .72rem; letter-spacing: .15em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 4px; }
+  .tl-company { font-size: .8rem; color: var(--slate); letter-spacing: .04em; margin-bottom: 4px; }
+  .tl-title {
+    font-size: 1.05rem; font-weight: 700; color: var(--navy);
+    cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+    transition: color .2s; user-select: none;
+  }
+  .tl-item:hover .tl-title { color: var(--teal); }
+  .tl-arrow {
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--teal); display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: background .2s;
+  }
+  .tl-item:hover .tl-arrow { background: var(--gold); }
+  .tl-arrow svg { width: 9px; height: 9px; fill: white; transition: transform .3s; }
+  .tl-item.open .tl-arrow svg { transform: rotate(90deg); }
+
+  .tl-desc {
+    max-height: 0; overflow: hidden;
+    transition: max-height .4s ease, opacity .3s ease, margin-top .3s ease;
+    opacity: 0; margin-top: 0;
+  }
+  .tl-item.open .tl-desc, .tl-item:hover .tl-desc {
+    max-height: 400px; opacity: 1; margin-top: 14px;
+  }
+  .desc-box {
+    padding: 18px 20px; background: var(--bg);
+    border-left: 3px solid var(--teal); border-radius: 0 6px 6px 0;
+  }
+  .desc-line {
+    display: block; font-size: .88rem; color: var(--slate); line-height: 1.7;
+    padding-left: 14px; position: relative; margin-bottom: 5px;
+  }
+  .desc-line:last-child { margin-bottom: 0; }
+  .desc-line::before {
+    content: ''; position: absolute; left: 0; top: 10px;
+    width: 4px; height: 4px; border-radius: 50%; background: var(--teal);
+  }
+
+  /* ─── TOOLS ─── */
+  #tools { background: var(--bg); }
+  .tools-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; max-width: 600px; }
+  .tools-group h3 {
+    font-size: .72rem; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--teal); font-weight: 600; margin-bottom: 18px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--light);
+  }
+  .tool-tag {
+    display: inline-block; margin: 4px 4px 4px 0;
+    padding: 7px 16px; border-radius: 4px;
+    background: var(--white); border: 1px solid #d5d5d5;
+    font-size: .82rem; color: var(--slate);
+    transition: border-color .2s, color .2s, transform .15s;
+  }
+  .tool-tag:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-2px); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--navy); padding: 48px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 24px;
+  }
+  footer .f-name { font-size: 1.1rem; font-weight: 700; color: var(--white); letter-spacing: .05em; }
+  footer .f-role { font-size: .8rem; color: var(--peach); margin-top: 2px; }
+  footer .f-links { display: flex; gap: 20px; }
+  footer .f-links a {
+    color: var(--light); text-decoration: none; font-size: .82rem;
+    letter-spacing: .05em; opacity: .7; transition: opacity .2s, color .2s;
+  }
+  footer .f-links a:hover { opacity: 1; color: var(--gold); }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .55s ease, transform .55s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 768px) {
+    nav { padding: 14px 16px; gap: 8px; }
+    .nav-logo { font-size: .82rem; letter-spacing: .08em; white-space: nowrap; flex-shrink: 0; }
+    .nav-links { gap: 10px; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-right: 4px; }
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-links a { font-size: .66rem; letter-spacing: .07em; white-space: nowrap; }
+    /* Hide the decorative gold vertical line on mobile — it overlaps content */
+    .hero-bg::after { display: none; }
+    section { padding: 64px 20px; }
+    #hero { padding: 90px 20px 56px; }
+    h1 { white-space: normal; font-size: clamp(2rem, 9vw, 3rem); }
+    .hero-sub { font-size: .88rem; }
+    .hero-desc span { font-size: .88rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 24px; }
+    .achievement-card { padding: 28px 22px; }
+    .achievement-card li { font-size: .86rem; }
+    .tools-cols { grid-template-columns: 1fr; gap: 28px; }
+    .skill-chip { font-size: .82rem; padding: 9px 16px; }
+    .tl-title { font-size: .98rem; }
+    .desc-line { font-size: .84rem; }
+    .tl-arrow { width: 26px; height: 26px; }
+    .tl-arrow svg { width: 11px; height: 11px; }
+    footer { padding: 32px 20px; flex-direction: column; align-items: flex-start; gap: 20px; }
+    footer .f-links { flex-direction: column; gap: 10px; }
+    * { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  }
+
+  @media (max-width: 400px) {
+    h1 { font-size: 8.5vw; }
+    .nav-links a { font-size: .62rem; }
+    .hero-certs { gap: 8px; }
+    .cert-badge { font-size: .7rem; padding: 5px 11px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Ngan · LT</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="mailto:lathuyngan@gmail.com">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Portfolio</div>
+
+    <h1>La Thuy <span>Ngan.</span></h1>
+    <p class="hero-sub">Technical Project Manager</p>
+    <div class="hero-divider"></div>
+
+    <div class="hero-desc">
+      <span>I work at the intersection of technical teams and clients — making sure both sides are aligned, informed, and moving in the same direction.</span>
+      <span>I engage directly with engineering challenges, not around them: architecture reviews, risk calls, technical escalations.</span>
+      <span>Four years inside Bosch's engineering organization gave me a delivery standard built to automotive-grade rigor — one I carry into every environment I enter, especially ones still building their own.</span>
+      <span>I'm deliberate and perceptive by nature — I see problems forming before they surface, and I'd rather prevent than recover.</span>
+    </div>
+
+    <div class="hero-certs">
+      <a class="cert-badge" href="https://www.credly.com/badges/8fbf99c9-995f-48fa-b9ac-1e6e5b178473/linked_in_profile" target="_blank" rel="noopener">PMP ↗</a>
+      <a class="cert-badge" href="https://www.credly.com/badges/bca57b79-8f0c-4803-b35c-71af9213a3f3/linked_in_profile" target="_blank" rel="noopener">PSM I ↗</a>
+      <a class="cert-badge" href="https://www.credly.com/badges/03970901-52b6-403d-bab7-136861e0739c/public_url" target="_blank" rel="noopener">PSM II ↗</a>
+      <span class="cert-badge">TOEIC 850</span>
+      <span class="cert-badge">JLPT N2</span>
+      <span class="cert-badge">BBA · UFM</span>
+    </div>
+
+    <div class="hero-contact">
+      <a href="mailto:lathuyngan@gmail.com">lathuyngan@gmail.com</a>
+      <a href="tel:0933420448">0933 420 448</a>
+      <span style="color:var(--slate);font-size:.85rem">Ho Chi Minh City</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label reveal">Highlights</div>
+  <div class="section-title reveal">
+    What I bring to the table
+    <span class="sub">For the last 4 years</span>
+  </div>
+  <div class="about-grid">
+    <div class="achievement-card reveal">
+      <h3>Delivery Impact</h3>
+      <ul>
+        <li>Owned full project lifecycle — from kickoff to handover — across teams of 15–20 developers and QA, across time zones</li>
+        <li>Identified bottlenecks early and resolved them proactively, before they reached the client or impacted timelines</li>
+        <li>Delivered 20+ projects exceeding €250,000 in budget; clients consistently felt informed, confident, and in control</li>
+        <li>Presented risks, recovery plans, and technical trade-offs to clients in clear, structured language — never just a problem, always a proposal</li>
+        <li>Recipient of multiple Spot Awards for delivery excellence and cross-functional leadership</li>
+      </ul>
+    </div>
+    <!-- FIX 2: Added scaling/process line to Leadership card -->
+    <div class="achievement-card reveal" style="transition-delay:.1s">
+      <h3>Leadership</h3>
+      <ul>
+        <li>Led and mentored a team of 7 Project Managers and PM Assistants with focus on technical accountability</li>
+        <li>Designed onboarding standards and delivery frameworks that supported scaling from a small team to a growing multi-project portfolio — reducing ramp-up time and improving delivery consistency</li>
+        <li>Designed and conducted internal training series: Personal Branding, Cognitive Bias, Self-Awareness, Microstress Management</li>
+        <li>Known for energizing teams and cultivating a positive, purpose-driven work environment</li>
+        <li>Editor in Chief of Department Magazine with 100+ stakeholders</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label reveal">Career</div>
+  <div class="section-title reveal">
+    Experience
+    <span class="sub">Hover a role to see details</span>
+  </div>
+
+  <div class="timeline reveal">
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">Jul 2025 — Present</div>
+      <div class="tl-company">Globee Ltd · Ho Chi Minh City</div>
+      <div class="tl-title">
+        Project Manager — Salesforce Commerce Cloud
+        <span class="tl-arrow"><svg viewBox="0 0 10 10"><polygon points="2,2 8,5 2,8"/></svg></span>
+      </div>
+      <div class="tl-desc"><div class="desc-box">
+        <span class="desc-line">Globee is a Salesforce Commerce Cloud partner — enhancement team across multiple branded storefronts.</span>
+        <span class="desc-line">Brought in to build structure alongside a fast-moving team — applied enterprise delivery discipline from day one.</span>
+        <span class="desc-line">Led cross-functional team of 12–15 (FE/BE developers, QA, BA).</span>
+        <span class="desc-line">Navigated complex SaaS delivery: multi-vendor dependencies, Salesforce platform constraints, and backend integration challenges.</span>
+        <span class="desc-line">Managed technical risk escalation between client, Salesforce vendor, and internal engineering team.</span>
+      </div></div>
+    </div>
+
+    <!-- FIX 1: Added developer-unblocking evidence to Bosch entry -->
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">May 2021 — Jun 2025</div>
+      <div class="tl-company">Bosch Global Software Technologies · Ho Chi Minh City</div>
+      <div class="tl-title">
+        Technical Project Manager — Airbag ECU
+        <span class="tl-arrow"><svg viewBox="0 0 10 10"><polygon points="2,2 8,5 2,8"/></svg></span>
+      </div>
+      <div class="tl-desc"><div class="desc-box">
+        <span class="desc-line">Airbag Electronic Control Unit (ECU) — Embedded C, CAN Bus, ISO 26262 SDLC.</span>
+        <span class="desc-line">Managed team of 15–20 engineers and QA across multiple disciplines.</span>
+        <span class="desc-line">Participated in system design reviews, API integration planning, and AUTOSAR architecture discussions.</span>
+        <span class="desc-line">Stepped directly into technical root-cause analysis during CAN Bus integration blockers — diagnosed the issue with the team rather than relaying it upward, cutting resolution time significantly.</span>
+        <span class="desc-line">Absorbed Bosch's enterprise delivery standards — structured release gates, ISO 26262 compliance checkpoints, rigorous QA processes — and internalized them as a personal operating model, not just a company policy.</span>
+        <span class="desc-line">Primary escalation point for client-side technical queries across Japanese OEM accounts.</span>
+      </div></div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">Nov 2019 — Dec 2020</div>
+      <div class="tl-company">Hanwa Ltd · Ho Chi Minh City</div>
+      <div class="tl-title">
+        Sales Manager Assistant
+        <span class="tl-arrow"><svg viewBox="0 0 10 10"><polygon points="2,2 8,5 2,8"/></svg></span>
+      </div>
+      <div class="tl-desc"><div class="desc-box">
+        <span class="desc-line">In charge of logistics documentation for JP export.</span>
+        <span class="desc-line">Managed customer sales forecasts, sales orders, and delivery scheduling.</span>
+        <span class="desc-line">Coordinated cross-border communication between Vietnamese and Japanese stakeholders.</span>
+      </div></div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">Aug 2016 — Aug 2019</div>
+      <div class="tl-company">Food Process Corp (Maguchi Group) · Osaka, Japan</div>
+      <div class="tl-title">
+        Technical Intern
+        <span class="tl-arrow"><svg viewBox="0 0 10 10"><polygon points="2,2 8,5 2,8"/></svg></span>
+      </div>
+      <div class="tl-desc"><div class="desc-box">
+        <span class="desc-line">Warehouse control and in/out documentation processes.</span>
+        <span class="desc-line">Meeting interpreter between Vietnamese and Japanese teams.</span>
+        <span class="desc-line">Developed cross-cultural communication discipline within a Japanese work environment.</span>
+      </div></div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">Jan 2015 — Dec 2015</div>
+      <div class="tl-company">Fortune Innovations Training Ltd · Ho Chi Minh City</div>
+      <div class="tl-title">
+        PR Manager Assistant
+        <span class="tl-arrow"><svg viewBox="0 0 10 10"><polygon points="2,2 8,5 2,8"/></svg></span>
+      </div>
+      <div class="tl-desc"><div class="desc-box">
+        <span class="desc-line">Daily operations, document translation, and appointment scheduling.</span>
+        <span class="desc-line">Organised official public appearances and events.</span>
+        <span class="desc-line">Represented the firm to external stakeholders.</span>
+      </div></div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">Jan 2014 — Dec 2014</div>
+      <div class="tl-company">Time Universal Ltd · Ho Chi Minh City</div>
+      <div class="tl-title">
+        Account Executive
+        <span class="tl-arrow"><svg viewBox="0 0 10 10"><polygon points="2,2 8,5 2,8"/></svg></span>
+      </div>
+      <div class="tl-desc"><div class="desc-box">
+        <span class="desc-line">Job briefing to Account Manager and team members.</span>
+        <span class="desc-line">Customer communications and job planning.</span>
+        <span class="desc-line">Proposal writing, presenting, workflow and cost control.</span>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label reveal" style="color:var(--peach)">Competencies</div>
+  <div class="section-title light reveal">Core Skills</div>
+
+  <div class="skills-blocks reveal">
+    <div class="skill-block">
+      <div class="skill-block-label">Soft Skills</div>
+      <div class="skill-block-chips">
+        <div class="skill-chip">Problem Solving</div>
+        <div class="skill-chip">Communication</div>
+        <div class="skill-chip">Critical Thinking</div>
+        <div class="skill-chip">Time Management</div>
+        <div class="skill-chip">Collaboration</div>
+        <div class="skill-chip">Flexibility</div>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-label">Technical</div>
+      <div class="skill-block-chips">
+        <div class="skill-chip">HTML / CSS</div>
+        <div class="skill-chip">Java (review)</div>
+        <div class="skill-chip">SQL</div>
+        <div class="skill-chip">REST API Concepts</div>
+        <div class="skill-chip">Git</div>
+        <div class="skill-chip">CI/CD Awareness</div>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-label">Method</div>
+      <div class="skill-block-chips">
+        <div class="skill-chip">Agile / Scrum</div>
+        <div class="skill-chip">Waterfall</div>
+        <div class="skill-chip">SDLC</div>
+        <div class="skill-chip">Risk Management</div>
+        <div class="skill-chip">Stakeholder Management</div>
+        <div class="skill-chip">Release Management</div>
+        <div class="skill-chip">Change Management</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="section-label reveal">Stack</div>
+  <div class="section-title reveal">Tools &amp; Software</div>
+  <div class="tools-cols reveal">
+    <div class="tools-group">
+      <h3>Project &amp; Management</h3>
+      <span class="tool-tag">Jira</span>
+      <span class="tool-tag">MS Project</span>
+      <span class="tool-tag">ALM</span>
+    </div>
+    <div class="tools-group">
+      <h3>Development &amp; Review</h3>
+      <span class="tool-tag">HTML / CSS</span>
+      <span class="tool-tag">Java</span>
+      <span class="tool-tag">SQL</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<!-- FIX 3: Removed "unusually fast" quip; kept the reading note but reframed it professionally -->
+<footer>
+  <div>
+    <div class="f-name">La Thuy Ngan</div>
+    <div class="f-role">Technical Project Manager · Ho Chi Minh City</div>
+    <div style="font-size:.78rem; color:var(--slate); margin-top:8px; font-style:italic;">
+      Fun fact: an avid reader.
+    </div>
+  </div>
+  <div class="f-links">
+    <a href="mailto:lathuyngan@gmail.com">lathuyngan@gmail.com</a>
+    <a href="tel:0933420448">0933 420 448</a>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => io.observe(el));
+
+  document.querySelectorAll('.tl-item').forEach(item => {
+    item.querySelector('.tl-title').addEventListener('click', () => {
+      item.classList.toggle('open');
+    });
+  });
+</script>
+</body>
+</html>
