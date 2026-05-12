@@ -334,7 +334,7 @@
   <div class="hero-content">
     <div class="hero-tag">Portfolio</div>
 
-    <h1>La Thuy <span>Ngan.</span></h1>
+    <h1>La Thuy <span>Ngan </span></h1>
     <p class="hero-sub">Technical Project Manager</p>
     <div class="hero-divider"></div>
 
@@ -594,9 +594,12 @@
   }, { threshold: 0.12 });
   reveals.forEach(el => io.observe(el));
 
-  document.querySelectorAll('.tl-item').forEach(item => {
+  const tlItems = document.querySelectorAll('.tl-item');
+  tlItems.forEach(item => {
     item.querySelector('.tl-title').addEventListener('click', () => {
-      item.classList.toggle('open');
+      const isOpen = item.classList.contains('open');
+      tlItems.forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
     });
   });
 </script>
