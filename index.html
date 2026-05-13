@@ -200,7 +200,6 @@
     background: var(--white); border: 3px solid var(--teal);
     transition: background .25s, border-color .25s, transform .25s; z-index: 2;
   }
-  .tl-item:hover .tl-dot { background: var(--gold); border-color: var(--gold); transform: scale(1.3); }
   .tl-date { font-size: .72rem; letter-spacing: .15em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 4px; }
   .tl-company { font-size: .8rem; color: var(--slate); letter-spacing: .04em; margin-bottom: 4px; }
   .tl-title {
@@ -208,14 +207,17 @@
     cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
     transition: color .2s; user-select: none;
   }
-  .tl-item:hover .tl-title { color: var(--teal); }
   .tl-arrow {
     width: 18px; height: 18px; border-radius: 50%;
     background: var(--teal); display: inline-flex; align-items: center; justify-content: center;
     flex-shrink: 0; transition: background .2s;
   }
-  .tl-item:hover .tl-arrow { background: var(--gold); }
   .tl-arrow svg { width: 9px; height: 9px; fill: white; transition: transform .3s; }
+  @media (hover: hover) {
+    .tl-item:hover .tl-dot { background: var(--gold); border-color: var(--gold); transform: scale(1.3); }
+    .tl-item:hover .tl-title { color: var(--teal); }
+    .tl-item:hover .tl-arrow { background: var(--gold); }
+  }
   .tl-item.open .tl-arrow svg { transform: rotate(90deg); }
 
   .tl-desc {
@@ -223,8 +225,11 @@
     transition: max-height .4s ease, opacity .3s ease, margin-top .3s ease;
     opacity: 0; margin-top: 0;
   }
-  .tl-item.open .tl-desc, .tl-item:hover .tl-desc {
+ .tl-item.open .tl-desc {
     max-height: 400px; opacity: 1; margin-top: 14px;
+  }
+  @media (hover: hover) {
+    .tl-item:hover .tl-desc { max-height: 400px; opacity: 1; margin-top: 14px; }
   }
   .desc-box {
     padding: 18px 20px; background: var(--bg);
